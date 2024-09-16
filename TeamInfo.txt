@@ -1,0 +1,6 @@
+We are Team CAMZ.  Our project is about the pet care idea.  Where the goal of the app is to help the user keep up with its pets need. 
+The app will be able to provide reminders for feeding if your pet has certain times, as well as setting other reminders for vet visits, medication reminders, and any other lifestyle needs your pet may have.
+
+Team Members: Emily Alvarez, Adam Zuniga, Adrian Carreno, Hassanudeen Muhammad
+COMP 490/491L: TueThurs 7:00pm - 9:15pm
+
