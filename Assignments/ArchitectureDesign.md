@@ -4,8 +4,9 @@ Lecture Youtube Link: https://www.youtube.com/watch?v=6YH9xFLG4Fo&list=PLSx7bGPy
 
 
 Our Pet Care Application Model
-* We plan to develop in Java, and accessing/creating our own databases for pet information possibly using Thymeleaf
+* We plan to develop in Java, and accessing/creating our own databases for pet information possibly using MySQL
 * We will plan to APIs to inegrate both the Map function and allow for more interactive Calendar functionality!
+* Possible Thymeleaf integration
 
 (Google Calenders, Google Maps API depends on pricing availabilty)
 
