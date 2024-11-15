@@ -1,0 +1,139 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+body {
+  background-color: #f4f4f4;
+  background: url('../images/indexbg.jpeg') no-repeat center center fixed; /* Local image path */
+    background-size: cover;  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Dashboard Button */
+.dashboard-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #4CAF50;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 1rem; /* Spacing between buttons */
+    align-items: center;
+  }
+  
+  /* Buttons Styling */
+  .header .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #4CAF50;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .header .btn:hover {
+    background-color: #45a049;
+  }
+  
+
+/* Form Layout */
+.form-container {
+  background-color: #ddd;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  min-height: 900;
+}
+
+/* Form Sections */
+.form-section-left, .form-section-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Labels and Inputs */
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  padding: 0.5rem;
+  border: none;
+  background-color: #eee;
+  border-radius: 4px;
+  width: 100%;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+/* Medicine Schedule Section */
+.medicine-schedule {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* Adjusting to one row per entry */
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.day-label {
+  font-weight: bold;
+  text-align: right;
+}
+
+/* Button */
+.btn {
+  padding: 0.8rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+/* Dashboard Button - positioned at the top left */
+.dashboard-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #4CAF50;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  /* Additional styling remains unchanged */
+  

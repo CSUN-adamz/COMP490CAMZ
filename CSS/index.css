@@ -1,0 +1,150 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  background: url('../images/indexbg.jpeg') no-repeat center center fixed; /* Local image path */
+  background-size: cover;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header Section */
+.header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Main Section */
+.main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Auth Box Styling at Top-Right */
+.auth-box {
+  background-color: #dfac60e1; /*  */
+  color: #fff;
+  padding: 2rem;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: center;
+}
+
+.auth-box h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.auth-box input[type="text"],
+.auth-box input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.auth-box input::placeholder {
+  color: #ccc;
+}
+
+.auth-box input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.auth-box button.btn {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-box button.btn:hover {
+  background-color: #fff;
+  color: #c43f3f;
+}
+
+/* Divider Styling */
+.divider {
+  margin: 1rem 0;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Links in Auth Box */
+.auth-box p a {
+  color: #fff;
+  text-decoration: underline;
+  font-size: 0.9rem;
+  margin: 0.5rem;
+}
+
+/* Footer Section */
+.footer {
+  background-color: rgba(51, 51, 51, 0.9); /* Semi-transparent black for contrast */
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+/* Medicine Table Styling */
+.medicine-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.medicine-table th, .medicine-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.medicine-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.medicine-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+
+
