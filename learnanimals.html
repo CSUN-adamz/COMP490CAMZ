@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn About Animals</title>
+  <link rel="stylesheet" href="css/learnanimals.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+    .input-container, .info-container {
+      margin-top: 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1rem;
+      width: 100%;
+    }
+    button {
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .info-container {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .info-item {
+      margin-bottom: 10px;
+    }
+    .info-item span {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<a href="dashboard.html" class="dashboard-btn">Dashboard</a>
+
+<div class="container">
+  <h1>Learn About Animals</h1>
+  <p>Enter part of an animal's name to see information about related animals.</p>
+
+  <!-- Input for animal name -->
+  <div class="input-container">
+    <input type="text" id="animal-name" placeholder="Enter animal name (e.g., cat)" required>
+    <button onclick="getAnimalInfo()">Search</button>
+  </div>
+
+  <!-- Container to display animal information -->
+  <div id="animal-info-container" style="display: none;">
+    <!-- Animal info will be dynamically inserted here -->
+  </div>
+</div>
+
+<script>
+  async function getAnimalInfo() {
+    const animalName = document.getElementById("animal-name").value.trim();
+    if (!animalName) {
+      alert("Please enter an animal name.");
+      return;
+    }
+
+    //const apiUrl = 
+    //const apiKey = 
+
+    try {
+      const response = await fetch(apiUrl, {
+        headers: {
+          "X-Api-Key": apiKey
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Error fetching data from API.");
+      }
+
+      const data = await response.json();
+      if (data.length === 0) {
+        alert("No information found for this animal.");
+        return;
+      }
+
+      displayAnimalInfo(data);
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Unable to retrieve animal information. Please try again.");
+    }
+  }
+
+  function displayAnimalInfo(animals) {
+    const container = document.getElementById("animal-info-container");
+    container.innerHTML = ""; // Clear previous results
+    container.style.display = "block"; // Show the container
+
+    animals.forEach(animal => {
+      // Create a container for each animal's information
+      const animalCard = document.createElement("div");
+      animalCard.classList.add("info-container");
+
+      animalCard.innerHTML = `
+        <h2>${animal.name}</h2>
+        <div class="info-item"><span>Scientific Name:</span> ${animal.taxonomy.scientific_name || "N/A"}</div>
+        <div class="info-item"><span>Classification:</span> Kingdom: ${animal.taxonomy.kingdom || "N/A"}, 
+          Phylum: ${animal.taxonomy.phylum || "N/A"}, Class: ${animal.taxonomy.class || "N/A"},
+          Order: ${animal.taxonomy.order || "N/A"}, Family: ${animal.taxonomy.family || "N/A"},
+          Genus: ${animal.taxonomy.genus || "N/A"}</div>
+        <div class="info-item"><span>Locations:</span> ${animal.locations.join(", ") || "N/A"}</div>
+        <div class="info-item"><span>Diet:</span> ${animal.characteristics.diet || "N/A"}</div>
+        <div class="info-item"><span>Habitat:</span> ${animal.characteristics.habitat || "N/A"}</div>
+        <div class="info-item"><span>Top Speed:</span> ${animal.characteristics.top_speed || "N/A"}</div>
+        <div class="info-item"><span>Lifespan:</span> ${animal.characteristics.lifespan || "N/A"}</div>
+        <div class="info-item"><span>Weight:</span> ${animal.characteristics.weight || "N/A"}</div>
+        <div class="info-item"><span>Height:</span> ${animal.characteristics.height || "N/A"}</div>
+        <div class="info-item"><span>Biggest Threat:</span> ${animal.characteristics.biggest_threat || "N/A"}</div>
+        <div class="info-item"><span>Slogan:</span> ${animal.characteristics.slogan || "N/A"}</div>
+      `;
+
+      // Append each animal's card to the container
+      container.appendChild(animalCard);
+    });
+  }
+</script>
+
+</body>
+</html>

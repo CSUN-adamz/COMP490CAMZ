@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Care Management - Home</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="container">
+      <h1>Pet Care Management Application</h1>
+      <p>Your go-to solution for organized and efficient pet care</p>
+    </div>
+  </header>
+
+  <!-- Main Section with Login and Sign-Up -->
+  <main class="main">
+    <div class="auth-box">
+      <!-- Log In Form -->
+      <form id="login-form" class="auth-form">
+        <h2>Log In</h2>
+        <input type="text" id="login-email" placeholder="User ID" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <label>
+          <input type="checkbox" id="save-user-id"> Save User ID
+        </label>
+        <button type="submit" class="btn">Log In</button>
+        <p><a href="#">Forgot ID/Password?</a> | <a href="#">Security & Help</a></p>
+      </form>
+      
+      <div class="divider">or</div>
+
+      <!-- Sign-Up Form -->
+      <form id="signup-form" class="auth-form">
+        <h2>Sign Up</h2>
+        <input type="text" id="signup-email" placeholder="User ID" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button type="submit" class="btn">Sign Up</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <p>&copy; 2024 Team CAMZ. All Rights Reserved.</p>
+  </footer>
+
+  <script type="module">
+    // Import Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    // Firebase configuration here
+
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Handle login
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert('Login successful!');
+        window.location.href = 'dashboard.html'; // Redirect to dashboard
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+    // Handle sign-up
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert('Sign-up successful!');
+        window.location.href = 'dashboard.html'; // Redirect to dashboard
+        } catch (error) {
+        alert(error.message);
+        }
+    });
+  </script>
+</body>
+</html>

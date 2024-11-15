@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In - Pet Care Management</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <h1>Log In to Pet Care Management</h1>
+  </header>
+
+  <!-- Log In Form -->
+  <main class="main">
+    <form id="login-form" class="form-container">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit" class="btn">Log In</button>
+    </form>
+    <p>Don't have an account? <a href="signup.html">Sign Up here</a>.</p>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <p>&copy; 2024 Team CAMZ. All Rights Reserved.</p>
+  </footer>
+
+  <script type="module">
+    // Import Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    // Firebase configuration here
+   
+
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Handle Log-In Form Submission
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        // Set persistence to keep the user logged in
+        await setPersistence(auth, browserLocalPersistence);
+        
+        // Authenticate user with Firebase
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        alert('Login successful!');
+        window.location.href = 'dashboard.html'; // Redirect to dashboard
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register a Pet - Pet Care Management</title>
+  <link rel="stylesheet" href="css/register_pet.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <h1>Register a New Pet</h1>
+    <a href="dashboard.html" class="btn">Dashboard</a>
+  </header>
+
+  <!-- Pet Registration Form -->
+  <main class="main">
+    <form id="pet-registration-form" class="form-container">
+      <label for="pet-name">Pet Name:</label>
+      <input type="text" id="pet-name" name="pet-name" required>
+
+      <label for="species">Species:</label>
+      <select id="species" name="species" required>
+        <option value="Dog">Dog</option>
+        <option value="Cat">Cat</option>
+        <option value="Bird">Bird</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="breed">Breed:</label>
+      <input type="text" id="breed" name="breed" required>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required min="0">
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+
+      <label for="weight">Weight (lbs):</label>
+      <input type="number" id="weight" name="weight" required min="0" step="0.1">
+
+      <label for="medical-history">Medical History:</label>
+      <textarea id="medical-history" name="medical-history" rows="4" placeholder="List any past medical issues, surgeries, etc."></textarea>
+
+      <label for="vaccinations">Vaccinations (up-to-date?):</label>
+      <select id="vaccinations" name="vaccinations" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <!-- Medicine Schedule Section -->
+      <h3>Medicine Schedule (7-Day)</h3>
+      <div class="medicine-schedule">
+        <label>Sunday:</label>
+        <input type="text" id="medicine-sunday-name" placeholder="Medicine Name">
+        <input type="text" id="dosage-sunday" placeholder="Dosage">
+        <input type="text" id="schedule-sunday" placeholder="Frequency (e.g., Morning, Evening)">
+      </div>
+      <div class="medicine-schedule">
+        <label>Monday:</label>
+        <input type="text" id="medicine-monday-name" placeholder="Medicine Name">
+        <input type="text" id="dosage-monday" placeholder="Dosage">
+        <input type="text" id="schedule-monday" placeholder="Frequency (e.g., Morning, Evening)">
+      </div>
+      <div class="medicine-schedule">
+        <label>Tuesday:</label>
+        <input type="text" id="medicine-tuesday-name" placeholder="Medicine Name">
+        <input type="text" id="dosage-tuesday" placeholder="Dosage">
+        <input type="text" id="schedule-tuesday" placeholder="Frequency (e.g., Morning, Evening)">
+      </div>
+
+      <div class="medicine-schedule">
+        <label>Wednesday:</label>
+        <input type="text" id="medicine-wednesday-name" placeholder="Medicine Name">
+        <input type="text" id="dosage-wednesday" placeholder="Dosage">
+        <input type="text" id="schedule-wednesday" placeholder="Frequency (e.g., Morning, Evening)">
+      </div>
+
+      <div class="medicine-schedule">
+        <label>Thursday:</label>
+        <input type="text" id="medicine-thursday-name" placeholder="Medicine Name">
+        <input type="text" id="dosage-thursday" placeholder="Dosage">
+        <input type="text" id="schedule-thursday" placeholder="Frequency (e.g., Morning, Evening)">
+      </div>
+
+      <div class="medicine-schedule">
+        <label>Friday:</label>
+        <input type="text" id="medicine-friday-name" placeholder="Medicine Name">
+        <input type="text" id="dosage-friday" placeholder="Dosage">
+        <input type="text" id="schedule-friday" placeholder="Frequency (e.g., Morning, Evening)">
+      </div>
+
+      <div class="medicine-schedule">
+        <label>Saturday:</label>
+        <input type="text" id="medicine-saturday-name" placeholder="Medicine Name">
+        <input type="text" id="dosage-saturday" placeholder="Dosage">
+        <input type="text" id="schedule-saturday" placeholder="Frequency (e.g., Morning, Evening)">
+      </div>
+
+      <button type="submit" class="btn">Register Pet</button>
+    </form>
+  </main>
+
+  <script type="module">
+    // Import Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    // Firebase configuration here
+   
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    console.log("Auth persistence set to local.");
+  })
+  .catch((error) => {
+    console.error("Error setting persistence:", error);
+  });
+
+    // Redirect if not logged in
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        alert("You must be logged in to access this page.");
+        window.location.href = "login.html";
+      } else {
+        console.log("User is logged in:", user.email);
+      }
+    });
+
+    // Handle Pet Registration Form Submission
+    document.getElementById('pet-registration-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const user = auth.currentUser;
+      if (!user) {
+        alert("You must be logged in to register a pet.");
+        return;
+      }
+
+      const petData = {
+        ownerId: user.uid,
+        name: document.getElementById('pet-name').value,
+        species: document.getElementById('species').value,
+        breed: document.getElementById('breed').value,
+        age: parseInt(document.getElementById('age').value),
+        gender: document.getElementById('gender').value,
+        weight: parseFloat(document.getElementById('weight').value),
+        medicalHistory: document.getElementById('medical-history').value,
+        vaccinations: document.getElementById('vaccinations').value,
+        medicineSchedule: {
+          sunday: {
+            name: document.getElementById('medicine-sunday-name').value,
+            dosage: document.getElementById('dosage-sunday').value,
+            frequency: document.getElementById('schedule-sunday').value
+          },
+          monday: {
+            name: document.getElementById('medicine-monday-name').value,
+            dosage: document.getElementById('dosage-monday').value,
+            frequency: document.getElementById('schedule-monday').value
+          },
+          tuesday: {
+            name: document.getElementById('medicine-tuesday-name').value,
+            dosage: document.getElementById('dosage-tuesday').value,
+            frequency: document.getElementById('schedule-tuesday').value
+          },
+          wednesday: {
+            name: document.getElementById('medicine-wednesday-name').value,
+            dosage: document.getElementById('dosage-wednesday').value,
+            frequency: document.getElementById('schedule-wednesday').value
+          },
+          thursday: {
+            name: document.getElementById('medicine-thursday-name').value,
+            dosage: document.getElementById('dosage-thursday').value,
+            frequency: document.getElementById('schedule-thursday').value
+          },
+          friday: {
+            name: document.getElementById('medicine-friday-name').value,
+            dosage: document.getElementById('dosage-friday').value,
+            frequency: document.getElementById('schedule-friday').value
+          },
+          saturday: {
+            name: document.getElementById('medicine-saturday-name').value,
+            dosage: document.getElementById('dosage-saturday').value,
+            frequency: document.getElementById('schedule-saturday').value
+          }
+        }
+      };
+
+      try {
+        await addDoc(collection(db, "pets"), petData);
+        alert("Pet registered successfully!");
+        document.getElementById('pet-registration-form').reset(); // Clear form
+      } catch (error) {
+        console.error("Error registering pet:", error.message);
+        alert("Failed to register pet. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
